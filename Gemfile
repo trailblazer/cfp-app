@@ -8,7 +8,7 @@ gem 'pg'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-datatables-rails', github: "rweng/jquery-datatables-rails"
+gem 'jquery-datatables-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0.4'
 gem 'haml', '~> 4.0.4'
@@ -34,6 +34,13 @@ gem 'responders', '~> 2.0'
 gem 'pundit'
 gem 'faker'
 gem 'actionview-encoded_mail_to'
+
+gem 'reform'
+gem "reform-rails"
+gem 'trailblazer'
+gem 'trailblazer-rails'
+gem 'trailblazer-operation'
+
 
 group :production do
   gem 'rails_12factor'

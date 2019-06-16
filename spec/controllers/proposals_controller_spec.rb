@@ -3,6 +3,7 @@ require 'rails_helper'
 describe ProposalsController, type: :controller do
   let(:event) { create(:event) }
 
+
   describe 'GET #new' do
     let(:user) { create :user }
     let(:action) { :new }
@@ -54,6 +55,10 @@ describe ProposalsController, type: :controller do
     }
 
     before { allow(controller).to receive(:current_user).and_return(user) }
+
+    it "call CreateProposal operation with permitted params" do
+      expect(Proposal::Operation::Create).to receive(:call).with(params)
+    end
 
     it "sets the user's bio if not is present" do
       user.bio = nil
