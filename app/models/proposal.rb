@@ -35,7 +35,7 @@ class Proposal < ApplicationRecord
   attr_accessor :tags, :review_tags, :updating_user
 
   accepts_nested_attributes_for :public_comments, reject_if: Proc.new { |comment_attributes| comment_attributes[:body].blank? }
-  accepts_nested_attributes_for :speakers
+  accepts_nested_attributes_for :speakers #toDo removed when refactor #edit proposal
 
 
   before_create :set_uuid

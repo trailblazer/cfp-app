@@ -45,11 +45,11 @@ describe ProposalsController, type: :controller do
           details: proposal.details,
           pitch: proposal.pitch,
           session_format_id: proposal.session_format.id,
-          speakers_attributes: {
-            '0' => {
+          speakers: [
+            {
               bio: 'my bio'
             }
-          }
+          ]
         }
       }
     }

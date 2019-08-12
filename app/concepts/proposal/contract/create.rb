@@ -6,5 +6,4 @@ module Proposal::Contract
     property :pitch
     property :session_format_id
   end
-
 end
