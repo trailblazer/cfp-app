@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.3.7'
 
-gem 'rails', '5.0.1'
-gem 'puma', '~> 3.6.2'
+gem 'rails', '5.0.7.2'
+gem 'puma', '~> 3.7.1'
 
 gem 'pg'
 
@@ -16,9 +16,11 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails-assets-momentjs', source: 'https://rails-assets.org'
 gem 'selectize-rails'
 
-gem 'devise', '~> 4.1.1'
+gem 'devise', '~> 4.1'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
+
+gem "nokogiri", ">= 1.10.4"
 
 gem 'chartkick'
 gem 'groupdate'
@@ -34,6 +36,8 @@ gem 'responders', '~> 2.0'
 gem 'pundit'
 gem 'faker'
 gem 'actionview-encoded_mail_to'
+
+gem 'coveralls', require: false
 
 group :production do
   gem 'rails_12factor'
