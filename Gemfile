@@ -20,6 +20,8 @@ gem 'devise', '~> 4.1'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 
+gem "nokogiri", ">= 1.10.4"
+
 gem 'chartkick'
 gem 'groupdate'
 gem 'country_select', '~> 1.3.1'
