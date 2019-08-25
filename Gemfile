@@ -37,6 +37,8 @@ gem 'pundit'
 gem 'faker'
 gem 'actionview-encoded_mail_to'
 
+gem 'coveralls', require: false
+
 group :production do
   gem 'rails_12factor'
   gem 'rack-timeout', '~> 0.2.4'
