@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.3.7'
 
-gem 'rails', '5.0.1'
-gem 'puma', '~> 3.6.2'
+gem 'rails', '5.0.7.2'
+gem 'puma', '~> 3.7.1'
 
 gem 'pg'
 
