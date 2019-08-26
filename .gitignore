@@ -7,3 +7,5 @@
 .env
 scratch.md
 coverage/
+gemfiles/*.lock
+gemfiles/.bundle/*

@@ -1,6 +1,7 @@
 language: ruby
+cache: bundler
 rvm:
-  - 2.3.7
+  - 2.5.5
 env:
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
@@ -18,3 +19,8 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database cfp_app_test;' -U postgres
+gemfile:
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
+  - gemfiles/5.2.gemfile
+  - gemfiles/6.0.gemfile
