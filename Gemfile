@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.3.7'
+ruby '2.5.5'
 
-gem 'rails', '5.0.7.2'
-gem 'puma', '~> 3.7.1'
+gem 'puma', '~> 3.8'
 
 gem 'pg'
 
@@ -21,6 +20,7 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 
 gem "nokogiri", ">= 1.10.4"
+gem 'json', '~> 1.8.5'
 
 gem 'chartkick'
 gem 'groupdate'
@@ -29,10 +29,10 @@ gem 'redcarpet', '~> 3.0.0'
 gem 'coderay', '~> 1.0'
 gem 'bootstrap-multiselect-rails', '~> 0.9.9'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'draper', '3.0.0.pre1'
-gem 'simple_form', '~> 3.3.1'
+gem 'draper', '~> 3.1'
+gem 'simple_form', '~> 4.1'
 gem 'zeroclipboard-rails'
-gem 'responders', '~> 2.0'
+gem 'responders', '~> 3.0'
 gem 'pundit'
 gem 'faker'
 gem 'actionview-encoded_mail_to'
@@ -51,9 +51,9 @@ group :development do
   gem 'foreman'
   gem 'launchy'
   gem 'rack-mini-profiler'
-  gem 'haml-rails'
   gem 'spring-commands-rspec', require: false
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
+  gem 'appraisal'
 end
 
 group :development, :test do
