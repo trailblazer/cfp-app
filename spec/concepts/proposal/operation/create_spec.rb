@@ -32,13 +32,14 @@ describe Proposal::Operation::Create do
       let!(:session_format) { SessionFormat.create(name: 'FooBar', event: event)}
 
       it "creates a proposal assigned to event identified by slug" do
-        expect(result).to be_truthy
+        expect(result).to be_success
         expect(result[:model].title).to eq("Foo")
         expect(result[:model].persisted?).to be_truthy
         expect(result[:model].event).to eq(event)
       end
 
       it "assign current user as a speaker assigned to current event and filled with passed bio" do
+        binding.pry
         expect(result[:model].speakers[0].user).to eq(current_user)
         expect(result[:model].speakers[0].bio).to eq("my bio")
         expect(result[:model].speakers[0].event).to eq(event)
