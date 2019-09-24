@@ -1,8 +1,7 @@
 require 'rails_helper'
 describe Proposal::Operation::Create do
 
-  subject(:result){ described_class.trace(params: params, current_user: current_user) }
-
+  subject(:result) { described_class.trace(params: params, current_user: current_user) }
   let(:current_user) { instance_double(User) }
 
   context "with valid params" do
@@ -39,7 +38,6 @@ describe Proposal::Operation::Create do
       end
 
       it "assign current user as a speaker assigned to current event and filled with passed bio" do
-        binding.pry
         expect(result[:model].speakers[0].user).to eq(current_user)
         expect(result[:model].speakers[0].bio).to eq("my bio")
         expect(result[:model].speakers[0].event).to eq(event)

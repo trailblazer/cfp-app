@@ -77,4 +77,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-remote'
+  gem "trailblazer-activity", "0.8.3"
 end
