@@ -1,5 +1,4 @@
 module Proposal::Contract
-
   class Create < Reform::Form
     property :title
     property :abstract

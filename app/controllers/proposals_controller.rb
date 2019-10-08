@@ -1,5 +1,5 @@
 class ProposalsController < ApplicationController
-  before_action :require_event, except: :index
+  before_action :require_event, except: [:index, :create]
   before_action :require_user
   before_action :require_proposal, except: [ :index, :create, :new, :parse_edit_field ]
   before_action :require_invite_or_speaker, only: [:show]
@@ -21,7 +21,7 @@ class ProposalsController < ApplicationController
 
   def new
     if @event.closed?
-      redirect_to event_path (@event)
+      redirect_to event_path(@event)
       flash[:danger] = "The CFP is closed for proposal submissions."
       return
     end
@@ -62,23 +62,16 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    if @event.closed? && @event.closes_at < 1.hour.ago
-      redirect_to event_path (@event)
+    result = Proposal::Operation::Create.call(params: params, current_user: current_user)
+    if result.success?
+      flash[:info] = setup_flash_message(result[:model].event)
+      redirect_to event_proposal_url(event_slug: result[:model].event.slug, uuid: result[:model])
+    elsif result[:errors] == "Event not found"
+      flash[:danger] = "Your event could not be found, please check the url."
+      redirect_to events_path
+    elsif result[:errors] == "Event is closed"
       flash[:danger] = "The CFP is closed for proposal submissions."
-      return
-    end
-    @proposal = @event.proposals.new(proposal_params)
-    speaker = @proposal.speakers[0]
-    speaker.user_id = current_user.id
-    speaker.event_id = @event.id
-
-    if @proposal.save
-      current_user.update_bio
-      flash[:info] = setup_flash_message
-      redirect_to event_proposal_url(event_slug: @event.slug, uuid: @proposal)
-    else
-      flash[:danger] = "There was a problem saving your proposal."
-      render :new
+      redirect_to event_path(slug: result[:model].event.slug)
     end
   end
 
@@ -144,12 +137,12 @@ class ProposalsController < ApplicationController
     end
   end
 
-  def setup_flash_message
+  def setup_flash_message(event)
     message = "Thank you! Your proposal has been submitted and may be reviewed at any time while the CFP is open.\n\n"
     message << "You are welcome to update your proposal or leave a comment at any time, just please be sure to preserve your anonymity.\n\n"
 
-    if @event.closes_at
-      message << "Expect a response regarding acceptance after the CFP closes on #{@event.closes_at.to_s(:long)}."
+    if event.closes_at
+      message << "Expect a response regarding acceptance after the CFP closes on #{event.closes_at.to_s(:long)}."
     end
   end
 
