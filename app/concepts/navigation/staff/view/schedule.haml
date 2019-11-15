@@ -1,0 +1,15 @@
+.navbar.navbar-fixed-top.schedule-subnav
+  .container-fluid
+    %ul.nav.navbar-nav.navbar-right
+      %li{class: subnav_item_class('event-schedule-grid-link')}
+        %a{:href => event_staff_schedule_grid_path(slug), :class => "text-primary", :method => :post}
+          %i.fa.fa-calendar-times-o
+          %span Grid
+      %li{class: subnav_item_class('event-schedule-time-slots-link')}
+        %a{:href => event_staff_schedule_time_slots_path(slug), :class => "text-primary", :method => :post}
+          %i.fa.fa-clock-o
+          %span Time Slots
+      %li{class: subnav_item_class('event-schedule-rooms-link')}
+        %a{:href => event_staff_schedule_rooms_path(slug), :class => "text-primary", :method => :post}
+          %i.fa.fa-tag
+          %span Rooms

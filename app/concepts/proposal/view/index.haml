@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    .page-header
+      %h1 My Proposals
+.row
+  .col-md-12.proposals
+    - if no_proposals?
+      .widget.widget-card.text-center
+        %h2.control-label You don't have any proposals.
+    = cell(Proposal::Cell::EventRow, collection: events, current_user: user, proposals: proposals, invitations: invitations)

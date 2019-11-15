@@ -1,0 +1,31 @@
+%li.proposal.proposal-info-bar
+  .flex-container.flex-container-md
+    .flex-item.flex-item-fixed.flex-item-padded.proposal-icon
+      %i.fa.fa-fw.fa-file-text
+    .flex-item.flex-item-padded
+      %h4.proposal-title
+        = talk_link
+      .proposal-meta.proposal-description
+        .proposal-meta-item
+          %strong
+            = title
+          %span
+            = speakers_collection
+        .proposal-meta-item
+          %strong Format:
+          %span
+            = session_format_name
+        .proposal-meta-item
+          %strong Track:
+          %span
+            = track_name
+      .proposal-meta.margin-top
+        %strong Updated:
+        %span
+          = updated_in_words
+    .flex-item.flex-item-fixed.flex-item-padded
+      .proposal-status
+        = talk.speaker_state(small: true)
+      .proposal-meta
+        %i.fa.fa-fw.fa-comments
+        = comments

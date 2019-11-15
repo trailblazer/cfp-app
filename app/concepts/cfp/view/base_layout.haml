@@ -1,0 +1,30 @@
+!!!5
+%html(lang="en")
+  %head
+    %title= title
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', media: 'all'
+    = stylesheet_link_tag "//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+
+    = javascript_include_tag 'application'
+    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+    = javascript_include_tag { yield :custom_js }
+
+    // html5 shim and respond.js ie8 support of html5 elements and media queries
+    /[if lt ie 9]
+      = javascript_include_tag "/js/html5shiv.js"
+      = javascript_include_tag "/js/respond.min.js"
+
+
+  #flash= show_flash
+
+  %body{id: body_id}
+    = cell(Navigation::Cell::Main, nil, context: {current_event: current_event})
+    .main
+      .main-inner
+        .container-fluid
+          =yield
+
+  = cell(Cfp::Cell::EventFooter, nil, context: {current_event: current_event})

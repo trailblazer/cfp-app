@@ -99,6 +99,8 @@ feature 'Sign In', :devise do
   scenario 'speaker with proposals goes to their proposals' do
     proposal = create(:proposal)
     speaker = create(:speaker)
+    event = create(:event)
+    proposal.event = event
     proposal.speakers << speaker
     user = speaker.user
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ProposalsController, type: :controller do
-  let(:event) { create(:event) }
+  let(:event) { FactoryGirl.create(:event, state: "open") }
 
   describe 'GET #new' do
     let(:user) { create :user }
@@ -44,22 +44,47 @@ describe ProposalsController, type: :controller do
           details: proposal.details,
           pitch: proposal.pitch,
           session_format_id: proposal.session_format.id,
-          speakers_attributes: {
-            '0' => {
+          speakers: [
+            {
               bio: 'my bio'
             }
-          }
+          ]
         }
       }
     }
 
     before { allow(controller).to receive(:current_user).and_return(user) }
 
+    it "create Proposal" do
+      expect{
+        post :create, params: params
+      }.to change{Proposal.count}.by(1)
+    end
+
     it "sets the user's bio if not is present" do
       user.bio = nil
       post :create, params: params
       expect(user.bio).to eq('my bio')
     end
+
+    context "event closed" do
+      let!(:event) { FactoryGirl.create(:event, state: "closed", closes_at: Time.now - 20.years) }
+      it "redirects to event show page with 'The CFP is closed for proposal submissions.'  message" do
+        post :create, params: params
+        expect(response).to redirect_to(event_path(event))
+        expect(flash[:danger]).to match(/The CFP is closed for proposal submissions.*/)
+      end
+    end
+
+    context "wrong slug passed" do
+      let(:wrong_params) { params.merge(event_slug: 'Non-existing-slug')}
+      it "re-render new form with 'Your event could not be found, please check the url.' message" do
+        post :create, params: wrong_params
+        expect(response).to redirect_to(events_path)
+        expect(flash[:danger]).to match(/Your event could not be found, please check the url.*/)
+      end
+    end
+
   end
 
   describe "POST #confirm" do

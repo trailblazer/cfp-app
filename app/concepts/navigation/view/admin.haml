@@ -1,0 +1,13 @@
+%li.notifications-link.dropdown
+  %a.dropdown-toggle{title: "Admin Toggle", href: "#", data: { toggle: "dropdown" } }
+    Admin
+    %b.caret
+  %ul.dropdown-menu.admin-dropdown
+    %li{class: "#{request.path == admin_users_path ? 'active' : ''}"}
+      %a{:href => admin_users_path}
+        %i.fa.fa-file-text
+        %span Users
+      %li{class: "#{request.path == admin_events_path ? 'active' : ''}"}
+        %a{:href => admin_events_path}
+          %i.fa.fa-calendar
+          %span Events
