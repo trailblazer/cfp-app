@@ -105,7 +105,7 @@ feature "Organizers can manage speakers for Program Sessions" do
       end
 
       fill_in "speaker[speaker_name]", with: "Penny"
-      fill_in "speaker[speaker_email]", with: "gobbiltygook"
+      # fill_in "speaker[speaker_email]", with: 
       click_on "Save"
 
       expect(page).to have_content "There was a problem updating this speaker."

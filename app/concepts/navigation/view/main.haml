@@ -1,0 +1,58 @@
+.navbar.navbar-default.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{ type: "button", data: { toggle: "collapse", target: ".navbar-collapse" } }
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      - if current_event
+        = link_to "#{current_event.name} CFP", event_path(current_event), class: 'navbar-brand'
+      - else
+        = link_to "CFP App", events_path, class: 'navbar-brand'
+
+    .collapse.navbar-collapse
+      - if current_user
+        %ul.nav.navbar-nav.navbar-right
+          - if speaker_nav?
+            %li{class: nav_item_class("my-proposals-link")}
+              %a{:href => proposals_path}
+                %i.fa.fa-file-text
+                %span My Proposals
+          - if review_nav?
+            %li{class: nav_item_class("event-review-proposals-link")}
+              %a{:href => event_staff_proposals_path(current_event)}
+                %i.fa.fa-balance-scale
+                %span Review
+          - if program_nav?
+            %li{class: nav_item_class("event-program-link")}
+              %a{:href => event_staff_program_proposals_path(current_event)}
+                %i.fa.fa-sitemap
+                %span Program
+          - if schedule_nav?
+            %li{class: nav_item_class("event-schedule-link")}
+              %a{:href => event_staff_schedule_grid_path(current_event)}
+                %i.fa.fa-calendar
+                %span Schedule
+          - if staff_nav?
+            %li{class: nav_item_class("event-dashboard-link")}
+              %a{:href => event_staff_path(current_event)}
+                %i.fa.fa-dashboard
+                %span Dashboard
+
+          - if admin_nav?
+            = cell(Navigation::Cell::Admin)
+          = cell(Navigation::Cell::NotificationsList)
+          = cell(Navigation::Cell::UserDropdown)
+
+      - else
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to "Log in", new_user_session_path
+
+- if display_staff_event_subnav?
+  = cell(Navigation::Staff::Cell::Event, current_event)
+
+- elsif program_mode?
+  = cell(Navigation::Staff::Cell::Program, current_event)
+
+- elsif schedule_mode?
+  = cell(Navigation::Staff::Cell::Schedule, current_event)

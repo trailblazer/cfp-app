@@ -1,0 +1,29 @@
+.row
+  .col-md-4
+    .widget.widget-card.flush-top
+      .event-info.event-info-block
+        %strong.event-title
+          = name
+        %span{:class => status_class}
+          CFP
+          = status
+        %span.pull-right
+          - if event.open?
+            = new_event_link
+        .event-meta
+          -if has_date_range?
+            %span.event-meta-item
+              %i.fa.fa-fw.fa-calendar
+              = date_range
+        .event-meta.margin-top
+          %span.event-meta
+            = guidelines_link
+  .col-md-8
+    - if invites.present?
+      .proposal-section.invitations.callout
+        %h2.callout-title Speaker Invitations
+        %ul.list-unstyled
+          = cell(Proposal::Cell::InviteRow, collection: invites)
+    .proposal-section
+      %ul.list-unstyled
+        = cell(Proposal::Cell::TalkRow, collection: talks, event: event)

@@ -1,0 +1,20 @@
+%li.notifications-link.dropdown
+  %a.dropdown-toggle{title: "Notifications Toggle", href: "#", data: { toggle: "dropdown" } }
+    %i.fa.fa-envelope
+    %span.badge= notifications_count if unread_notications?
+
+  %ul.dropdown-menu.notifications-dropdown
+    - if unread_notications?
+      %li
+        = cell(Navigation::Cell::NotificationRow, collection: notifications_unread)
+
+      %li.divider{role: "separator"}
+      %li
+        %a{:href => mark_all_as_read_notifications_path, :class => "text-primary", :method => :post}
+          %i.fa.fa-file-text
+          %span Mark all as read
+    %li
+      %a{:href => notifications_path}
+        %i.fa.fa-eye
+        %span
+          = more_unread_notifications? ? "#{notifications_more_unread_count} More Unread" : "View all notifications"

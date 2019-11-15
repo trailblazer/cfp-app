@@ -68,7 +68,7 @@ describe ProposalsController, type: :controller do
     end
 
     context "event closed" do
-      let!(:event) { FactoryGirl.create(:event, state: "closed") }
+      let!(:event) { FactoryGirl.create(:event, state: "closed", closes_at: Time.now - 20.years) }
       it "redirects to event show page with 'The CFP is closed for proposal submissions.'  message" do
         post :create, params: params
         expect(response).to redirect_to(event_path(event))

@@ -21,7 +21,7 @@ feature "A user sees correct information for the current event and their role" d
     signin(normal_user.email, normal_user.password)
     expect(current_path).to eq(event_path(event_1.slug))
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link(event_1.name)
       expect(page).to_not have_link("My Proposals")
       expect(page).to have_link("", href: "/notifications")
@@ -29,6 +29,7 @@ feature "A user sees correct information for the current event and their role" d
     end
 
     within ".page-header" do
+
       expect(page).to have_content("#{event_1.name} CFP")
       expect(page).to_not have_content("#{event_2.name} CFP")
     end
@@ -44,7 +45,7 @@ feature "A user sees correct information for the current event and their role" d
 
     [proposals_path, notifications_path, profile_path].each do |path|
       visit path
-      within ".navbar" do
+      within ".navbar.navbar-default.navbar-fixed-top" do
         expect(page).to have_link(event_1.name)
       end
     end
@@ -57,7 +58,7 @@ feature "A user sees correct information for the current event and their role" d
     signin(normal_user.email, normal_user.password)
     expect(current_path).to eq(events_path)
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link("CFP App")
       expect(page).to_not have_link("My Proposals")
       expect(page).to have_link("", href: "/notifications")
@@ -78,20 +79,20 @@ feature "A user sees correct information for the current event and their role" d
     visit root_path
     visit proposals_path
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link(event_1.name)
     end
 
     visit root_path
     click_on(event_2.name)
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link(event_2.name)
     end
 
     visit notifications_path
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link(event_2.name)
     end
 
@@ -101,7 +102,7 @@ feature "A user sees correct information for the current event and their role" d
 
     visit proposals_path
 
-    within ".navbar" do
+    within ".navbar.navbar-default.navbar-fixed-top" do
       expect(page).to have_link(event_2.name)
     end
   end

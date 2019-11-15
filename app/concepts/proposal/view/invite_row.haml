@@ -1,0 +1,22 @@
+%li.invitation.proposal.proposal-info-bar
+  .flex-container.flex-container-md
+    .flex-item.flex-item-padded
+      %h4.proposal-title
+        = invitation_link
+
+      .proposal-meta.proposal-description
+        .proposal-meta-item
+          %strong Track:
+          = track_name
+        .proposal-meta-item
+          %strong
+            = title
+          = speakers
+    .flex-item.flex-item-fixed.flex-item-padded.flex-item-right
+      .invitation-status
+        =  content_tag :span, state, class: label_class
+      - if invite.pending?
+        .proposal-meta.invite-btns
+          = decline_button(small: true)
+
+          = accept_button(small: true)

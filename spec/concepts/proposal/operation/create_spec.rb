@@ -2,7 +2,8 @@ require 'rails_helper'
 describe Proposal::Operation::Create do
 
   subject(:result) { described_class.trace(params: params, current_user: current_user) }
-  let(:current_user) { instance_double(User) }
+  let(:current_user) { FactoryGirl.create(:user) }
+
 
   context "with valid params" do
     let(:params) {
@@ -24,7 +25,6 @@ describe Proposal::Operation::Create do
     }
 
     context "with open event" do
-      let(:current_user) { FactoryGirl.create(:user) }
       let!(:event) {
         FactoryGirl.create(:event, state: "open", slug: 'Lorem')
       }
@@ -58,24 +58,35 @@ describe Proposal::Operation::Create do
 
     context "with closed event" do
       let(:session_format) { instance_double(SessionFormat, id: 53) }
-      let!(:event) { FactoryGirl.create(:event, state: "closed", slug: 'Lorem') }
-
+      let!(:event) { FactoryGirl.create(:event, state: "closed", closes_at: Time.now, slug: 'Lorem') }
+      before do
+        Timecop.freeze(event.closes_at + 2.hour)
+      end
+      after do
+        Timecop.return
+      end
       it "returns result object with an error about closed event without saving the proposal" do
         expect(result[:errors]).to eq("Event is closed")
         expect(result).to be_failure
       end
     end
 
-    context "with event that is about to be closed" do
+    context "with event that was closed less than an hour age" do
       let(:session_format) { instance_double(SessionFormat, id: 53) }
       let!(:event) {
         FactoryGirl.create(:event,
-            state: "open", slug: 'Lorem', closes_at: Time.current + 40.minutes
+            state: "closed", slug: 'Lorem', closes_at: Time.now
         ) }
 
-      it "returns result object with an error about closed event without saving the proposal" do
-        expect(result[:errors]).to eq("Event is closed")
-        expect(result).to be_failure
+      before do
+        Timecop.freeze(event.closes_at + 40.minutes)
+      end
+      after do
+        Timecop.return
+      end
+      it "it passes successfully" do
+        expect(result[:errors]).to eq(nil)
+        expect(result).to be_success
       end
     end
   end

@@ -1,0 +1,15 @@
+%li.dropdown
+  %a.dropdown-toggle.gravatar-container{ href: "#", data: { toggle: "dropdown" } }
+    = avatar
+    &nbsp; #{user_name}
+    %b.caret
+  %ul.dropdown-menu
+    %li
+      %a{:href => edit_profile_path}
+        %i.fa.fa-user
+        %span My Profile
+
+    %li
+      %a{:href => destroy_user_session_path}
+        %i.fa.fa-sign-out
+        %span Sign Out

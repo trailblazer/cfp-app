@@ -8,6 +8,9 @@ module Proposal::Contract
     property :event_id
     property :current_user, virtual: true
     validates :current_user, presence: true
+    validates :title, presence: true
+    validates :abstract, presence: true
+    validates :session_format_id, presence: true
 
     collection :speakers, populator: ->(model:, index:, **args) {
 

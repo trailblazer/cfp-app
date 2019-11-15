@@ -1,4 +1,6 @@
-require "active_support/concern"
+# frozen_string_literal: true
+
+require 'active_support/concern'
 
 module ProgramSupport
   extend ActiveSupport::Concern
@@ -29,5 +31,4 @@ module ProgramSupport
       @all_waitlisted_track_count ||= current_event.stats.all_waitlisted_proposals(sticky_selected_track)
     end
   end
-
 end
