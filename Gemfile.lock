@@ -251,7 +251,7 @@ GEM
       interception (>= 0.5)
       pry
     public_suffix (2.0.5)
-    puma (3.6.2)
+    puma (3.12.6)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
@@ -413,7 +413,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   pry-rescue
-  puma (~> 3.6.2)
+  puma (~> 3.12.6)
   pundit
   rack-mini-profiler
   rack-timeout (~> 0.2.4)
